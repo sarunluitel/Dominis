@@ -1,14 +1,21 @@
-import java.util.HashMap;
+import java.util.LinkedList;
 
 public class BoneYard {
 
-    public HashMap<Integer,Domino> boneMap = new HashMap<>();
+    public LinkedList<Domino> boneList = new LinkedList<>();
 
     public BoneYard(Integer[] boneArray){
         for (int i : boneArray) {
-            this.boneMap.put(i,new Domino(i/ 10, i% 10));
+            this.boneList.add(new Domino(i/ 10, i% 10));
         }
-        System.out.println("asdf"+this.boneMap.toString());
+    }
 
+    public Domino getBones(){
+        Domino a = boneList.getFirst();
+        boneList.removeFirst();
+        return a;
+    }
+    public int boneNumRemain(){
+        return boneList.size();
     }
 }

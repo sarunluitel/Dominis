@@ -1,14 +1,17 @@
+import com.sun.media.jfxmedia.events.PlayerEvent;
+
 import java.util.Arrays;
 import java.util.Collections;
 
 public class GameController {
+    public final int RIGHT=2;
+    public final int LEFT=1;
 
-    public void play(){
+    Board board =new Board();
+
+    public GameController(){
         initialize();
-        createObjects();
-
-
-    }// make an array of numbers 11 shuffle that list and use it as keys to assign to board, boneyard and hands
+    }
 
 
     public void initialize(){
@@ -23,13 +26,39 @@ public class GameController {
         Integer[] computerArray=Arrays.copyOfRange(shuffle,7,14);
         Integer[] boneArray=Arrays.copyOfRange(shuffle,14,28);
 
-        System.out.println("Bone array");
+        Player player= new Player(playerArray);
+        Computer computer= new Computer(computerArray);
+        BoneYard boneYard= new BoneYard(boneArray);
+
+        play(player,computer,boneYard);
+
     }
 
 
-    public void createObjects(){
+    public void play(Player player,Computer computer, BoneYard boneYard){
+
+        // ask domino from player
+        System.out.println("these are your Dominos Play one"+player.playerHand.keySet());
+        // get player domino to board.
+        board.setBoard(player.getDomino(),RIGHT);
+        //41showBoad();
+
+        // Ask domino from the computer.
+        board.setBoard(computer.getdominos(),LEFT);
+        showBoad();
+
+        play(player,computer,boneYard);
+
 
     }
 
-
+    public void showBoad(){
+        //show the board
+        if (Board.dominosInBoard==1){
+            System.out.println("BOARD   "+board.getboard()[0].DominoID());
+        }
+        else{
+            System.out.println("BOARD    "+board.getboard()[0].DominoID()+"..."+board.getboard()[1].DominoID());
+        }
+    }
 }

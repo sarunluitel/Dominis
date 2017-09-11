@@ -2,7 +2,7 @@ import java.util.LinkedList;
 
 public class BoneYard {
 
-    public LinkedList<Domino> boneList = new LinkedList<>();
+    private LinkedList<Domino> boneList = new LinkedList<>();
 
     public BoneYard(Integer[] boneArray){
         for (int i : boneArray) {

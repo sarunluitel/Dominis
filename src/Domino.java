@@ -10,8 +10,11 @@ public class Domino {
         this.DominoID=10*side1+side2;
     }
 
-    public int getSides(){
-        return this.side1*10 +this.side2;
+    public int getSide1(){
+        return this.side1;
+    }
+    public int getSide2(){
+        return this.side2;
     }
 
     public int DominoID(){

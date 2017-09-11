@@ -23,13 +23,21 @@ public class Player {
             a= playerHand.get(key);
         }
         else{
-            System.out.println("Draw domino from yur pile.");
+            System.out.println("Draw domino from your pile.");
             return getDomino();
         }
 
         if (playerHand.containsKey(key)) playerHand.remove(key);
-        //System.out.println("outpot from player returning domino"+ a.DominoID());
         return a;
+
+    } // take user input to pass domino to board.
+
+    public int getDominoSide(){
+        Scanner in= new Scanner(System.in);
+        System.out.println("Choose a side to put on  1 for Left, 2 for Right");
+        int a = in.nextInt();
+        if (a==1||a==2) return a;
+        return getDominoSide();
 
     }
 }

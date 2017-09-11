@@ -1,11 +1,7 @@
-import com.sun.media.jfxmedia.events.PlayerEvent;
-
 import java.util.Arrays;
 import java.util.Collections;
 
 public class GameController {
-    public final int RIGHT=2;
-    public final int LEFT=1;
 
     Board board =new Board();
 
@@ -37,28 +33,29 @@ public class GameController {
 
     public void play(Player player,Computer computer, BoneYard boneYard){
 
-        // ask domino from player
+        // ask domino from player**********************************8
         System.out.println("these are your Dominos Play one"+player.playerHand.keySet());
-        // get player domino to board.
-        board.setBoard(player.getDomino(),RIGHT);
-        //41showBoad();
 
-        // Ask domino from the computer.
-        board.setBoard(computer.getdominos(),LEFT);
-        showBoad();
+        // get player domino to board.****************************
+        Domino a=player.getDomino();
+        while(!board.setBoard(a,player.getDominoSide())) {
+            player.playerHand.put(a.DominoID(),a);
+            System.out.println("invalid domino. try again");
+            a = player.getDomino();
+        }
+        System.out.println("player played domino   "+a.DominoID());
+        board.showBoard();
+
+        // Ask domino from the computer.**************************
+        a =computer.getDominos(board.getLeftTile(),board.getRightTile());
+        System.out.println("Computer played domino   "+a.DominoID());
+        board.setBoard(a,computer.sideToPut());
+        board.showBoard();
 
         play(player,computer,boneYard);
 
 
     }
 
-    public void showBoad(){
-        //show the board
-        if (Board.dominosInBoard==1){
-            System.out.println("BOARD   "+board.getboard()[0].DominoID());
-        }
-        else{
-            System.out.println("BOARD    "+board.getboard()[0].DominoID()+"..."+board.getboard()[1].DominoID());
-        }
-    }
+
 }

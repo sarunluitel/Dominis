@@ -17,15 +17,12 @@ public class Computer {
 
     public Domino getDominos(int side1, int side2){
         for (int a : computerHand.keySet()) {
-            System.out.println("hello from the for each loop  "+a);
             if(a/10==side1|| a%10==side1){
                 sideToPut=1;
                 Domino d= computerHand.get(a);
                 computerHand.remove(a);
                 return d;
-
             }
-
             if(a/10==side2|| a%10==side2) {
                 sideToPut=2;
                 Domino d= computerHand.get(a);
@@ -33,10 +30,20 @@ public class Computer {
                 return d;
             }
         }
-
         return null;
     }
+
+
     public int sideToPut(){
         return sideToPut;
+    }
+
+    public void addToHand(Domino d){
+        System.out.println("got a new Domino  "+ d.DominoID());
+        computerHand.put(d.DominoID(),d);
+    }
+
+    public boolean isHandEmpty(){
+        return computerHand.isEmpty();
     }
 }

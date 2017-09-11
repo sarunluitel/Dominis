@@ -33,21 +33,39 @@ public class GameController {
 
     public void play(Player player,Computer computer, BoneYard boneYard){
 
-        // ask domino from player**********************************8
-        System.out.println("these are your Dominos Play one"+player.playerHand.keySet());
+        // ask domino from player**********************************
+        System.out.println(player.showHand());
 
         // get player domino to board.****************************
         Domino a=player.getDomino();
+
+        // true if domino a is successfully put in the board
         while(!board.setBoard(a,player.getDominoSide())) {
-            player.playerHand.put(a.DominoID(),a);
+
+
+            if(player.checkDominos(board.getLeftTile(),board.getRightTile())) player.addToHand(boneYard.getBones());//wromg place
+            System.out.println(player.showHand());
             System.out.println("invalid domino. try again");
             a = player.getDomino();
+            if(player.isHandEmpty()){
+                System.out.println("!!!Player wins!!!");
+                System.exit(1);
+            }
         }
+
         System.out.println("player played domino   "+a.DominoID());
         board.showBoard();
 
         // Ask domino from the computer.**************************
         a =computer.getDominos(board.getLeftTile(),board.getRightTile());
+        while(a==null){
+            computer.addToHand(boneYard.getBones());
+            a =computer.getDominos(board.getLeftTile(),board.getRightTile());
+            if(computer.isHandEmpty()){
+                System.out.println("!!!Computer wins!!!");
+                System.exit(1);
+            }
+        }
         System.out.println("Computer played domino   "+a.DominoID());
         board.setBoard(a,computer.sideToPut());
         board.showBoard();

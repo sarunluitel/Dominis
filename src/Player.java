@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Player {
 
-    protected HashMap<Integer,Domino> playerHand = new HashMap<>();
+    private HashMap<Integer,Domino> playerHand = new HashMap<>();
 
     public Player(Integer[] playerArray){
         for (Integer i : playerArray) {
@@ -39,6 +39,32 @@ public class Player {
         if (a==1||a==2) return a;
         return getDominoSide();
 
+    }
+
+    public boolean checkDominos(int left, int right){
+        for (int a : playerHand.keySet()) {
+            if(a/10==left|| a%10==left){
+                return false;
+            }
+            if(a/10==right|| a%10==right) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public String showHand(){
+       return "these are your Dominos Play one"+playerHand.keySet();
+
+    }
+
+    public void addToHand(Domino d){
+        System.out.println("got a new Domino  "+ d.DominoID());
+        playerHand.put(d.DominoID(),d);
+    }
+
+    public boolean isHandEmpty(){
+        return playerHand.isEmpty();
     }
 }
 

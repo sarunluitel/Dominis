@@ -1,0 +1,13 @@
+.root{
+    -fx-background: #6E6563;
+}
+.domino-design{
+
+    -fx-text-fill: orange;
+    -fx-background-color: white;
+    -fx-background-radius: 5px;
+    -fx-font-size: 25;
+    -fx-alignment:center;
+    -fx-content-display: center;
+    -fx-font-weight: bold;
+}

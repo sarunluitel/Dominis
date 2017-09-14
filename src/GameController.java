@@ -21,20 +21,27 @@ public class GameController {
     Computer computer= new Computer(computerArray);
     BoneYard boneYard= new BoneYard(boneArray);
 
-    play(player,computer,boneYard);
+
+    DisplayController GUI = new DisplayController();
+    GUI.initializeBoard(playerArray);
+
+
+    //play(player,computer,boneYard);
 
   }
 
 
   public void play(Player player,Computer computer, BoneYard boneYard){
 
+    // call Display controller methods to show GUI.
+    DisplayController GUI = new DisplayController();
     // ask domino from player**********************************
     System.out.println(player.showHand());
 
     // get player domino to board.****************************
     Domino a=player.getDomino();
 
-    // true if domino a is successfully put in the board
+    // true if domino 'a' is successfully put in the board
     while(!board.setBoard(a,player.getDominoSide())) {
 
       if(player.checkDominos(board.getLeftTile(),board.getRightTile()))

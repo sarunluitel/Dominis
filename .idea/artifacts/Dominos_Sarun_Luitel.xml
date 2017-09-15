@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="Domino_Sarun_Luitel:jar">
+  <artifact type="jar" name="Dominos_Sarun_Luitel">
     <output-path>$PROJECT_DIR$</output-path>
     <root id="archive" name="Dominos_Map.jar">
       <element id="module-output" name="Dominos_Map" />

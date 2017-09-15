@@ -1,81 +1,110 @@
 import java.util.Arrays;
 import java.util.Collections;
 
-public class GameController {
+public class GameController
+{
 
-  Board board =new Board();
+  public static Board board = new Board();
+  public static int playerEntry = -1;
 
-  public void initialize(){
+  public static boolean hasPlayerPlayed;
 
-    //make an array of numbers 11 shuffle that list and use it as keys to assign to board, boneyard and hands
-    Integer[] shuffle= {0,1,2,3,4,5,6,11,21,22,31,32,33,41,42,43,44,51,52,53,54,55,61,62,63,64,65,66};
+  public static Player player;
+  public static Computer computer;
+  public static BoneYard boneYard;
+
+  public void initialize()
+  {
+
+    //make an array of numbers and shuffle that list and use it as keys
+    // to assign to board, boneyard and hands
+    Integer[] shuffle = {0, 1, 2, 3, 4, 5, 6, 11, 21, 22, 31, 32, 33, 41, 42, 43, 44, 51, 52, 53,
+        54, 55, 61, 62, 63, 64, 65, 66};
     Collections.shuffle(Arrays.asList(shuffle)); // shuffled array to assign dominos.
 
     // get shuffled dominos for each pile.
 
-    Integer[] playerArray=Arrays.copyOfRange(shuffle, 0, 7);
-    Integer[] computerArray=Arrays.copyOfRange(shuffle,7,14);
-    Integer[] boneArray=Arrays.copyOfRange(shuffle,14,28);
+    Integer[] playerArray = Arrays.copyOfRange(shuffle, 0, 7);
+    Integer[] computerArray = Arrays.copyOfRange(shuffle, 7, 14);
+    Integer[] boneArray = Arrays.copyOfRange(shuffle, 14, 28);
 
-    Player player= new Player(playerArray);
-    Computer computer= new Computer(computerArray);
-    BoneYard boneYard= new BoneYard(boneArray);
+    player = new Player(playerArray);
+    computer = new Computer(computerArray);
+    boneYard = new BoneYard(boneArray);
 
 
     DisplayController GUI = new DisplayController();
-    GUI.initializeBoard(playerArray);
+    GUI.initializeBoard();
 
+    playPlayerTurn();
 
-    //play(player,computer,boneYard);
 
   }
 
 
-  public void play(Player player,Computer computer, BoneYard boneYard){
+  public static void playPlayerTurn()
+  {
 
     // call Display controller methods to show GUI.
+
     DisplayController GUI = new DisplayController();
-    // ask domino from player**********************************
-    System.out.println(player.showHand());
+    Domino a;
 
-    // get player domino to board.****************************
-    Domino a=player.getDomino();
+    if (playerEntry == -1)
+    {
+      hasPlayerPlayed = false;
 
-    // true if domino 'a' is successfully put in the board
-    while(!board.setBoard(a,player.getDominoSide())) {
-
-      if(player.checkDominos(board.getLeftTile(),board.getRightTile()))
-        player.addToHand(boneYard.getBones());//wromg place
-      System.out.println(player.showHand());
-      System.out.println("invalid domino. try again");
-      a = player.getDomino();
-      if(player.isHandEmpty()){
-        System.out.println("!!!Player wins!!!");
-        System.exit(1);
-      }
     }
+    while (hasPlayerPlayed)
+    {
+      // get player domino to board.****************************
+      System.out.println(playerEntry);
+      a = player.getDomino(playerEntry);// domino will be from player pile
+      //System.out.println("after getting player domino"+a.DominoID());
 
-    System.out.println("player played domino   "+a.DominoID());
-    board.showBoard();
+      //gets inside the while loop if domino a cannot be put to side given.
 
-    // Ask domino from the computer.**************************
-    a =computer.getDominos(board.getLeftTile(),board.getRightTile());
-    while(a==null){
-      computer.addToHand(boneYard.getBones());
-      a =computer.getDominos(board.getLeftTile(),board.getRightTile());
-      if(computer.isHandEmpty()){
-        System.out.println("!!!Computer wins!!!");
-        System.exit(1);
+      while (!board.setBoard(a, Player.side))
+      {
+
+        // see if player has any domino that can go to board
+
+        if (player.checkDominos(Board.leftTile, Board.rightTile))
+        {
+          player.addToHand(boneYard.getBones());//wromg place
+
+          if (Player.playerHand.isEmpty())
+          {
+            System.out.println("!!!Player wins!!!");
+            System.exit(1);
+          }
+        }
       }
+      // Ask domino from the computer.**************************
+      a = computer.getDominos(Board.leftTile, Board.rightTile);
+      while (a == null)
+      {
+        //ask Domino from boneyard if cannot find matching on the board
+        computer.addToHand(boneYard.getBones());
+        a = computer.getDominos(Board.leftTile, Board.rightTile);
+        if (computer.isHandEmpty())
+        {
+          System.out.println("!!!Computer wins!!!");
+          System.exit(1);
+        }
+      }
+      System.out.println("Computer played domino   " + a.DominoID());
+      board.setBoard(a, computer.sideToPut());
+
+
+      playerEntry=-1;
+      GUI.initializeBoard();
+      hasPlayerPlayed=false;
+
     }
-    System.out.println("Computer played domino   "+a.DominoID());
-    board.setBoard(a,computer.sideToPut());
-    board.showBoard();
-
-    play(player,computer,boneYard);
-
 
   }
 
 
 }
+

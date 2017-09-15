@@ -10,4 +10,5 @@
     -fx-alignment:center;
     -fx-content-display: center;
     -fx-font-weight: bold;
+    -fx-border-color: black;
 }

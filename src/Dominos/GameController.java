@@ -1,19 +1,27 @@
+package Dominos;
+/************************************
+ @author Sarun Luitel
+
+ Game controller provides codes to show
+ Initialize Dominos and control Player turns.
+
+ ************************************/
 import java.util.Arrays;
 import java.util.Collections;
 
 public class GameController
 {
 
-  public static Board board = new Board();
-  public static int playerEntry = -1;
+   static Board board = new Board();
+   static int playerEntry = -1;
 
-  public static boolean hasPlayerPlayed;
+   static boolean hasPlayerPlayed;
 
-  public static Player player;
-  public static Computer computer;
-  public static BoneYard boneYard;
+   static Player player;
+   static Computer computer;
+   static BoneYard boneYard;
 
-  public void initialize()
+   void initialize()
   {
 
     //make an array of numbers and shuffle that list and use it as keys
@@ -42,7 +50,7 @@ public class GameController
   }
 
 
-  public static void playPlayerTurn()
+   static void playPlayerTurn()
   {
 
     // call Display controller methods to show GUI.
@@ -107,6 +115,7 @@ public class GameController
 
 
     }catch(NullPointerException e) {
+      e.printStackTrace();
 
     }
 

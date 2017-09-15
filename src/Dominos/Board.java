@@ -1,15 +1,29 @@
+package Dominos;
+
+/************************************
+ @author Sarun Luitel
+
+ Provides methods and attribues to keep track
+ of dominos in the board and rules to play game.
+ ************************************/
 import java.util.LinkedList;
 
 public class Board
 {
-  public LinkedList<Domino> Board = new LinkedList<>();
-  public static int dominosInBoard = 0;
+  LinkedList<Domino> Board = new LinkedList<>();
+  static int dominosInBoard = 0;
   // initialize to 7 to see if it's the first attempt.
-  public static int rightTile =7;
-  public static int leftTile= 7;
+  static int rightTile =7;
+  static int leftTile= 7;
 
 
-  // set domino a to if not a valid domino return false.
+  /*****************************************************
+   @param dominoFrmPlayers gets Domino from player
+   @param side shows what side to put on.
+
+   @return  true if Domino was sucessfully placed on board
+
+   ********************************************************/
   public boolean setBoard(Domino dominoFrmPlayers, int side)
   {
 

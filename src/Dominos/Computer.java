@@ -1,4 +1,9 @@
-import sun.java2d.pipe.AAShapePipe;
+package Dominos;
+/************************************
+ @author Sarun Luitel
+
+ Provides rules for computer to play
+ ************************************/
 
 import java.util.HashMap;
 
@@ -8,10 +13,10 @@ public class Computer
   private HashMap<Integer, Domino> computerHand = new HashMap<>();
   private Integer[] cHandArray;
   private int sideToPut;
-  public static int dominosWithComp=7;
+  static int dominosWithComp=7;
 
 
-  public Computer(Integer[] computerDominos)
+  Computer(Integer[] computerDominos)
   {
     cHandArray=computerDominos;
     for (int i : computerDominos)
@@ -19,8 +24,8 @@ public class Computer
       this.computerHand.put(i,new Domino(i/ 10, i% 10));
     }
   }
-
-  public Domino getDominos(int side1, int side2)
+  // check if Domino is compatible on board.
+  Domino getDominos(int side1, int side2)
   {
     for (int a : computerHand.keySet())
     {
@@ -45,19 +50,19 @@ public class Computer
   }
 
 
-  public int sideToPut()
+  int sideToPut()
   {
     return sideToPut;
   }
 
-  public void addToHand(Domino d)
+  void addToHand(Domino d)
   {
     System.out.println("got a new Domino  "+ d.DominoID());
     dominosWithComp++;
     computerHand.put(d.DominoID(),d);
   }
 
-  public boolean isHandEmpty()
+  boolean isHandEmpty()
   {
     return computerHand.isEmpty();
   }

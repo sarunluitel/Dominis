@@ -1,17 +1,21 @@
+package Dominos;
+/************************************
+ @author Sarun Luitel
 
+ Provides Player properties and attributes
+ ************************************/
 import java.util.HashMap;
-import java.util.Scanner;
 
 public class Player
 {
 
 
 
-  public static HashMap<Integer,Domino> playerHand = new HashMap<>();
-  public static Integer[] playerArray;
-  public static int side=-1;
+  static HashMap<Integer,Domino> playerHand = new HashMap<>();
+  private static Integer[] playerArray;
+  static int side=-1;
 
-  public Player(Integer[] playerArray){
+  Player(Integer[] playerArray){
     for (Integer i : playerArray) {
       this.playerArray=playerArray;
 
@@ -20,11 +24,8 @@ public class Player
 
   }
 
-  public Domino getDomino(int playerEntry)
+  Domino getDomino(int playerEntry)
   {
-
-
-
     Domino a=null;
     if (playerHand.containsKey(playerEntry))
     {
@@ -42,13 +43,14 @@ public class Player
 
     }
 
-
-
-
   } // take user input to pass domino to board.
 
-  //returns true if player's hand has the domino on the end of the board
-  public boolean checkDominos(int left, int right)
+  /************************************
+   @param left checks if Player's had has
+   Dominos to play.
+
+   ************************************/
+  boolean checkDominos(int left, int right)
   {
     for (int a : playerHand.keySet())
     {
@@ -59,8 +61,8 @@ public class Player
     return false;
   }
 
-
-  public void addToHand(Domino d)
+  // put dominos from boneyar to hand.
+  void addToHand(Domino d)
   {
     playerHand.put(d.DominoID(),d);
   }

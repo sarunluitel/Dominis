@@ -2,7 +2,8 @@
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class Player {
+public class Player
+{
 
 
 
@@ -19,12 +20,14 @@ public class Player {
 
   }
 
-  public Domino getDomino(int playerEntry){
+  public Domino getDomino(int playerEntry)
+  {
 
 
 
     Domino a=null;
-    if (playerHand.containsKey(playerEntry)){
+    if (playerHand.containsKey(playerEntry))
+    {
       a= playerHand.get(playerEntry);
       playerHand.remove(playerEntry);
       return a;
@@ -45,21 +48,20 @@ public class Player {
   } // take user input to pass domino to board.
 
   //returns true if player's hand has the domino on the end of the board
-  public boolean checkDominos(int left, int right){
-    for (int a : playerHand.keySet()) {
-      if(a/10==left|| a%10==left){
-        return true;
-      }
-      if(a/10==right|| a%10==right) {
-        return true;
-      }
+  public boolean checkDominos(int left, int right)
+  {
+    for (int a : playerHand.keySet())
+    {
+      if(a/10==left|| a%10==left) return true;
+
+      if(a/10==right|| a%10==right) return true;
     }
     return false;
   }
 
 
-  public void addToHand(Domino d){
-    System.out.println("got a new Domino  "+ d.DominoID());
+  public void addToHand(Domino d)
+  {
     playerHand.put(d.DominoID(),d);
   }
 

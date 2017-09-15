@@ -55,56 +55,62 @@ public class GameController
       hasPlayerPlayed = false;
 
     }
-    while (hasPlayerPlayed)
+    try
     {
-      // get player domino to board.****************************
-      System.out.println(playerEntry);
-      a = player.getDomino(playerEntry);// domino will be from player pile
-      //System.out.println("after getting player domino"+a.DominoID());
-
-      //gets inside the while loop if domino a cannot be put to side given.
-
-      while (!board.setBoard(a, Player.side))
+      while (hasPlayerPlayed)
       {
+        // get player domino to board.****************************
+        System.out.println(playerEntry);
+        a = player.getDomino(playerEntry);// domino will be from player pile
 
-        // see if player has any domino that can go to board
+        //gets inside the while loop if domino a cannot be put to side given.
 
-        if (player.checkDominos(Board.leftTile, Board.rightTile))
+        while (!board.setBoard(a, Player.side))
         {
-          player.addToHand(boneYard.getBones());//wromg place
 
-          if (Player.playerHand.isEmpty())
+          // see if player has any domino that can go to board
+
+          if (player.checkDominos(Board.leftTile, Board.rightTile))
           {
-            System.out.println("!!!Player wins!!!");
+
+            player.addToHand(boneYard.getBones());//wromg place
+
+            if (Player.playerHand.isEmpty())
+            {
+              System.out.println("!!!Player wins!!!");
+              System.exit(1);
+            }
+          }
+        }
+        // Ask domino from the computer.**************************
+        a = computer.getDominos(Board.leftTile, Board.rightTile);
+        while (a == null)
+        {
+          //ask Domino from boneyard if cannot find matching on the board
+          computer.addToHand(boneYard.getBones());
+          a = computer.getDominos(Board.leftTile, Board.rightTile);
+          if (computer.isHandEmpty())
+          {
+            System.out.println("!!!Computer wins!!!");
             System.exit(1);
           }
         }
-      }
-      // Ask domino from the computer.**************************
-      a = computer.getDominos(Board.leftTile, Board.rightTile);
-      while (a == null)
-      {
-        //ask Domino from boneyard if cannot find matching on the board
-        computer.addToHand(boneYard.getBones());
-        a = computer.getDominos(Board.leftTile, Board.rightTile);
-        if (computer.isHandEmpty())
-        {
-          System.out.println("!!!Computer wins!!!");
-          System.exit(1);
-        }
-      }
-      System.out.println("Computer played domino   " + a.DominoID());
-      board.setBoard(a, computer.sideToPut());
+        System.out.println("Computer played domino   " + a.DominoID());
+        board.setBoard(a, computer.sideToPut());
 
 
-      playerEntry=-1;
-      GUI.initializeBoard();
-      hasPlayerPlayed=false;
+        playerEntry = -1;
+        GUI.initializeBoard();
+        hasPlayerPlayed = false;
+
+      }
+
+
+    }catch(NullPointerException e) {
 
     }
 
+
   }
-
-
 }
 

@@ -4,7 +4,8 @@ import java.util.HashMap;
 
 public  class RenderRectangles
 {
-  private static final String[] SIDE = {" \n  \n ", "\n  .   \n ", "  .  \n\n  .  ",
+  private static final String[] SIDE =
+      {" \n  \n ", "\n  .   \n ", "  .  \n\n  .  ",
       "  .  \n  .  \n  .  ", " . . \n\n . . ",
       " . . \n  .  \n . . ", " ... \n\n ... ",".\n  |||||  \n."};
   public static HashMap<Integer,Label> GUIDominos= new HashMap<>();
@@ -24,17 +25,13 @@ public  class RenderRectangles
     }
 
     Label finalLabel = label;
-    label.setOnMousePressed(e -> {
-
-
-    //  System.out.println(finalLabel.getId());
+    label.setOnMousePressed(e ->
+    {
       GameController.playerEntry=Integer.parseInt(finalLabel.getId());
       GameController.hasPlayerPlayed=true;
       if(e.isPrimaryButtonDown())Player.side=0;
       if(e.isSecondaryButtonDown())Player.side=1;
       GameController.playPlayerTurn();
-
-
 
     });
 

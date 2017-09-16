@@ -10,7 +10,7 @@ import java.util.LinkedList;
 
 public class Board
 {
-  LinkedList<Domino> Board = new LinkedList<>();
+  static LinkedList<Domino> Board = new LinkedList<>();
   static int dominosInBoard = 0;
   // initialize to 7 to see if it's the first attempt.
   static int rightTile =7;
@@ -33,30 +33,43 @@ public class Board
     {
       rightTile = dominoFrmPlayers.getSide2();
       leftTile = dominoFrmPlayers.getSide1();
+      Board.addFirst(dominoFrmPlayers);
+      dominosInBoard++;
+      return true;
     }
     //Assign dominos on left to update the corner values.
 
-    else if (side == 0){
-      if(leftTile==dominoFrmPlayers.getSide1() ||dominoFrmPlayers.getSide1()==0||leftTile==0)
+    else if (side == 0)
+    {
+      if(leftTile==dominoFrmPlayers.getSide1() ||dominoFrmPlayers.getSide1()==0
+          ||leftTile==0)
       {
         leftTile= dominoFrmPlayers.getSide2();
+        Domino fliped = new Domino(dominoFrmPlayers.getSide2(),
+            dominoFrmPlayers.getSide1());
+        Board.addFirst(fliped);
 
       }
-      else if (leftTile==dominoFrmPlayers.getSide2()||dominoFrmPlayers.getSide2()==0||leftTile==0)
+      else if (leftTile==dominoFrmPlayers.getSide2()||dominoFrmPlayers.getSide2()==0
+          ||leftTile==0)
       {
         leftTile= dominoFrmPlayers.getSide1();
+        Board.addFirst(dominoFrmPlayers);
+        dominosInBoard++;
+        return true;
 
       }
       else
       {
-        System.out.println("Invalid Domino");
+        System.out.println("Invalid Domino@set boardside 0");
         return false;
       }
       //Assign dominos on right to update the corner values.
     }
     else if (side == 1)
     {
-      if(rightTile==dominoFrmPlayers.getSide1()||dominoFrmPlayers.getSide1()==0||rightTile==0)
+      if(rightTile==dominoFrmPlayers.getSide1()||dominoFrmPlayers.getSide1()==0
+          ||rightTile==0)
       {
         rightTile= dominoFrmPlayers.getSide2();
         Board.addLast(dominoFrmPlayers);
@@ -65,16 +78,16 @@ public class Board
       else if (rightTile==dominoFrmPlayers.getSide2()||dominoFrmPlayers.getSide2()==0||rightTile==0)
       {
         rightTile= dominoFrmPlayers.getSide1();
-        Board.addLast(dominoFrmPlayers);
+        Domino fliped = new Domino(dominoFrmPlayers.getSide2(),
+            dominoFrmPlayers.getSide1());
+        Board.addLast(fliped);
         dominosInBoard++; return true;
       } else{
-        System.out.println("Invalid Domino");
+        System.out.println("Invalid Domino @boardside 1");
         return false;
       }
     }
-    Board.addFirst(dominoFrmPlayers);
-    dominosInBoard++;
-    return true;
+    return false;
 
   }
 }

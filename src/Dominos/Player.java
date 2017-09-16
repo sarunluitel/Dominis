@@ -26,22 +26,10 @@ public class Player
 
   Domino getDomino(int playerEntry)
   {
-    Domino a=null;
-    if (playerHand.containsKey(playerEntry))
-    {
-      a= playerHand.get(playerEntry);
-      playerHand.remove(playerEntry);
-      return a;
-    }
-    else{
-      //ask to select domino from their pile
-      //GameController.playerEntry=-1;
-      //GameController.hasPlayerPlayed=false;
-      //GameController.playPlayerTurn();
-      System.out.println("go get another domino from your pile");
-      return null ;//getDomino(GameController.playerEntry);
+    Domino a= playerHand.get(playerEntry);
+    playerHand.remove(playerEntry);
+    return a;
 
-    }
 
   } // take user input to pass domino to board.
 
@@ -52,8 +40,10 @@ public class Player
    ************************************/
   boolean checkDominos(int left, int right)
   {
+    if(left==0 || right==0) return true;
     for (int a : playerHand.keySet())
     {
+
       if(a/10==left|| a%10==left) return true;
 
       if(a/10==right|| a%10==right) return true;
@@ -61,7 +51,7 @@ public class Player
     return false;
   }
 
-  // put dominos from boneyar to hand.
+  // put dominos from boneyard to hand.
   void addToHand(Domino d)
   {
     playerHand.put(d.DominoID(),d);

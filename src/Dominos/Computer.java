@@ -31,16 +31,18 @@ public class Computer
     {
       if(a/10==side1|| a%10==side1)
       {
-        sideToPut=1;
+        sideToPut=0;
         Domino d= computerHand.get(a);
+        Board.Board.addFirst(d);
         computerHand.remove(a);
         dominosWithComp--;
         return d;
       }
       if(a/10==side2|| a%10==side2)
       {
-        sideToPut=2;
+        sideToPut=1;
         Domino d= computerHand.get(a);
+        Board.Board.addLast(d);
         computerHand.remove(a);
         dominosWithComp--;
         return d;

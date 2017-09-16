@@ -14,7 +14,7 @@ import java.util.HashMap;
 public  class RenderRectangles
 {
   private static final String[] SIDE =
-      {" \n  \n ", "   \n ", "  .  \n\n  .  ",
+      {" \n  \n ", "  . \n ", "  .  \n\n  .  ",
           "  .  \n  .  \n  .  ", " . . \n\n . . ",
           " . . \n  .  \n . . ", " ... \n\n ... ",".\n  |||||  \n."};
   static Label label=null;
@@ -39,13 +39,20 @@ public  class RenderRectangles
     Label finalLabel = label;
     label.setOnMousePressed(e ->
     {
-      GameController.playerEntry=Integer.parseInt(finalLabel.getId());
-      GameController.hasPlayerPlayed=true;
-      if(e.isPrimaryButtonDown())Player.side=0;
-      if(e.isSecondaryButtonDown())Player.side=1;
-      GameController.playPlayerTurn();
+
+      Integer clickedDomino = Integer.parseInt(finalLabel.getId());
+      if (Player.playerHand.containsKey(clickedDomino))
+      {
+        GameController.playerEntry = Integer.parseInt(finalLabel.getId());
+        GameController.hasPlayerPlayed = true;
+        if (e.isPrimaryButtonDown()) Player.side = 0;
+        if (e.isSecondaryButtonDown()) Player.side = 1;
+        GameController.playPlayerTurn();
+      }
+
 
     });
+
 
     return label;
   }

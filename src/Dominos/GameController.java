@@ -20,6 +20,7 @@ public class GameController
    static Player player;
    static Computer computer;
    static BoneYard boneYard;
+   static String Winner=null;
 
    void initialize()
   {
@@ -68,27 +69,31 @@ public class GameController
       while (hasPlayerPlayed)
       {
         // get player domino to board.****************************
-        System.out.println(playerEntry);
-        a = player.getDomino(playerEntry);// domino will be from player pile
+        a = player.getDomino(playerEntry);// domino will be drawn from player pile
 
         //gets inside the while loop if domino a cannot be put to side given.
 
         while (!board.setBoard(a, Player.side))
         {
-
           // see if player has any domino that can go to board
 
-          if (player.checkDominos(Board.leftTile, Board.rightTile))
+          if (!player.checkDominos(Board.leftTile, Board.rightTile))
           {
-
-            player.addToHand(boneYard.getBones());//wromg place
-
             if (Player.playerHand.isEmpty())
             {
-              System.out.println("!!!Player wins!!!");
-              System.exit(1);
+              GameController.Winner="!!!!Player!!!!";
             }
+            else{
+              player.addToHand(boneYard.getBones());
+
+            }
+            playerEntry = -1;
+            GUI.initializeBoard();
+            hasPlayerPlayed = false;
+            return;
           }
+          return;
+
         }
         // Ask domino from the computer.**************************
         a = computer.getDominos(Board.leftTile, Board.rightTile);
@@ -99,8 +104,7 @@ public class GameController
           a = computer.getDominos(Board.leftTile, Board.rightTile);
           if (computer.isHandEmpty())
           {
-            System.out.println("!!!Computer wins!!!");
-            System.exit(1);
+            GameController.Winner="!!!!Computer!!!!";
           }
         }
         System.out.println("Computer played domino   " + a.DominoID());

@@ -65,14 +65,22 @@ public class DisplayController extends Application
    ************************************/
   void initializeBoard()
   {
+
     {
+      if(GameController.Winner!=null)
+      {
+        gameStage.close();
+        showWinner();
+        return;
+      }
       if(Board.leftTile!=7)gameStage.close();
       gameStage= new Stage();
+
 
       HBox playerDominos = new HBox(10);
       HBox boardDominos = new HBox(10);
       HBox computerDominos = new HBox(10);
-      HBox boneYardDominos = new HBox(20);
+      HBox boneYardDominos = new HBox(5);
       BorderPane gameLayout = new BorderPane();
 
 
@@ -82,28 +90,27 @@ public class DisplayController extends Application
             RenderRectangles.renderLbl(0, 0));
       }
 
+      boneYardDominos.getChildren().addAll(
+          RenderRectangles.renderLbl(0, 0),
+          new Text(BoneYard.boneNumRemains+"  Dominos remain"));
+
+
       for (Integer a : Player.playerHand.keySet())
       {
         playerDominos.getChildren().add(
             RenderRectangles.renderLbl(a / 10, a % 10));
       }
+      System.out.println("outside board set loop");
+      for (Domino a : Board.Board)
+      {
+        System.out.println("inside");
+        Label local;
+        local =RenderRectangles.renderLbl(a.getSide1(), a.getSide2());
+        local.setRotate(-90);
+        System.out.println("putting dominos in board  "+a.DominoID());
+        boardDominos.getChildren().addAll(local,new Text("  here__  "));
+      }
 
-      boneYardDominos.getChildren().addAll(
-          RenderRectangles.renderLbl(0, 0), new Text("---BoneYard " +
-              "Dominos-------\n-------" + BoneYard.boneNumRemains +
-              "Dominos remain in Boneyard"),
-          RenderRectangles.renderLbl(0, 0));
-
-      //rotate dominos to put on board.
-      Label left =  RenderRectangles.renderLbl(Board.leftTile, 7);
-      left.setRotate(-90);
-      Label mid =  RenderRectangles.renderLbl(7, 7);
-      mid.setRotate(-90);
-      Label right =  RenderRectangles.renderLbl(7, Board.rightTile);
-      right.setRotate(-90);
-
-
-      boardDominos.getChildren().addAll(left, mid,right);
 
       computerDominos.setAlignment(Pos.TOP_RIGHT);
       playerDominos.setAlignment(Pos.BOTTOM_LEFT);
@@ -123,6 +130,18 @@ public class DisplayController extends Application
 
 
     }
+  }
+  void showWinner(){
+    Stage gameStage=new Stage();
+    VBox winnerBox = new VBox(30);
+    winnerBox.getChildren().addAll(new Text("The Winner is  :"+
+        GameController.Winner));
+    Scene gameScene = new Scene(winnerBox, 300, 300, Color.BLACK);
+
+    gameStage.setScene(gameScene);
+    gameStage.show();
+
+
   }
 }
 

@@ -75,6 +75,8 @@ public class GameController
 
         while (!board.setBoard(a, Player.side))
         {
+
+          player.addToHand(a);
           // see if player has any domino that can go to board
 
           if (!player.checkDominos(Board.leftTile, Board.rightTile))

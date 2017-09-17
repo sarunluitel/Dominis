@@ -14,9 +14,9 @@ import java.util.HashMap;
 public  class RenderRectangles
 {
   private static final String[] SIDE =
-      {" \n  \n ", "  . \n ", "  .  \n\n  .  ",
-          "  .  \n  .  \n  .  ", " . . \n\n . . ",
-          " . . \n  .  \n . . ", " ... \n\n ... ",".\n  |||||  \n."};
+      {" \n   ", "  . \n ", "  .  \n  .  ",
+          " . .  \n  .  ", " . . \n . . ",
+          " ...  \n . . ", " ... \n ... ",".  ||||| ."};
   static Label label=null;
 
   /********************************************************

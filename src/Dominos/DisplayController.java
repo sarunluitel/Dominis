@@ -10,8 +10,10 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -76,9 +78,9 @@ public class DisplayController extends Application
       if(Board.leftTile!=7)gameStage.close();
       gameStage= new Stage();
 
-
+      ScrollPane sc = new ScrollPane();
       HBox playerDominos = new HBox(10);
-      HBox boardDominos = new HBox(10);
+      HBox boardDominos = new HBox(30);
       HBox computerDominos = new HBox(10);
       HBox boneYardDominos = new HBox(5);
       BorderPane gameLayout = new BorderPane();
@@ -103,13 +105,18 @@ public class DisplayController extends Application
       System.out.println("outside board set loop");
       for (Domino a : Board.Board)
       {
+
         System.out.println("inside");
         Label local;
         local =RenderRectangles.renderLbl(a.getSide1(), a.getSide2());
         local.setRotate(-90);
+
+        local.setMinWidth(50);
         System.out.println("putting dominos in board  "+a.DominoID());
-        boardDominos.getChildren().addAll(local,new Text("  here__  "));
+        boardDominos.getChildren().addAll(local);
+       // boardDominos.setSpacing();
       }
+      sc.setContent(boardDominos);
 
 
       computerDominos.setAlignment(Pos.TOP_RIGHT);
@@ -118,7 +125,7 @@ public class DisplayController extends Application
       boneYardDominos.setAlignment(Pos.BOTTOM_RIGHT);
       gameLayout.setBottom(playerDominos);
       gameLayout.setTop(computerDominos);
-      gameLayout.setCenter(boardDominos);
+      gameLayout.setCenter(sc);
       gameLayout.setRight(boneYardDominos);
 
 
